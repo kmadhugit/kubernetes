@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orang-depl
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orang
+  template:
+    metadata:
+      name: orang-pod
+      labels:
+        app: orang
+    spec:
+      containers:
+      - name: orang-cont
+        image: madhukandasamy/hello-container
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NAME
+          value: "orang"
+        - name: PORT
+          value: "8000"
+        ports:
+        - name: orang-cont-port
+          containerPort: 8000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: orang-serv
+  labels:
+    app: orang
+spec:
+  selector:
+    app: orang
+# nodePort will also enable clusterIP
+#  type: ClusterIP
+  type: NodePort
+  ports:
+  - name: orang-serv-port
+    protocol: TCP
+    port: 7000
+    targetPort: orang-cont-port

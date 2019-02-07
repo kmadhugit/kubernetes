@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: simple-fanout-example
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: fruits.com
+    http:
+      paths:
+      - path: /apple
+        backend:
+          serviceName: apple-serv
+          servicePort: apple-serv-port
+      - path: /orang
+        backend:
+          serviceName: orang-serv
+          servicePort: orang-serv-port

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apple-depl
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apple
+  template:
+    metadata:
+      name: apple-pod
+      labels:
+        app: apple
+    spec:
+      containers:
+      - name: apple-cont
+        image: madhukandasamy/hello-container
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NAME
+          value: "apple"
+        - name: PORT
+          value: "8000"
+        ports:
+        - name: apple-cont-port
+          containerPort: 8000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: apple-serv
+  labels:
+    app: apple
+spec:
+  selector:
+    app: apple
+# nodePort will also enable clusterIP
+#  type: ClusterIP
+  type: NodePort
+  ports:
+  - name: apple-serv-port
+    protocol: TCP
+    port: 7000
+    targetPort: apple-cont-port

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+#include values are coming from _helpers.tpl
+  name: {{ .Values.appname }}-depl
+  labels:
+    release: {{ .Release.Name }}
+    app: {{ .Values.appname }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+        app: {{ .Values.appname }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+        app: {{ .Values.appname }}
+    spec:
+      containers:
+        - name: {{ .Values.appname }}-cont
+          image: {{ .Values.container.repository }}:{{ .Values.container.tag }}
+          imagePullPolicy: {{ .Values.container.pullPolicy }}
+          env:
+          - name: NAME
+            value: "{{ .Values.appname }}"
+          - name: PORT
+            value: "{{ .Values.container.port }}"
+          ports:
+            - name: {{ .Values.appname }}-cont-port
+              containerPort: {{ .Values.container.port }}
+              protocol: TCP

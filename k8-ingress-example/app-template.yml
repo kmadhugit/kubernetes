@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-app-depl
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-app
+  template:
+    metadata:
+      name: hello-app-pod
+      labels:
+        app: hello-app
+    spec:
+      containers:
+      - name: hello-app-cont
+        image: madhukandasamy/hello-container
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NAME
+          value: "hello-app"
+        - name: PORT
+          value: "8000"
+        ports:
+        - name: hp-cont-port
+          containerPort: 8000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-app-serv
+  labels:
+    app: hello-app
+spec:
+  selector:
+    app: hello-app
+# nodePort will also enable clusterIP
+#  type: ClusterIP
+  type: NodePort
+  ports:
+  - name: hp-serv-port
+    protocol: TCP
+    port: 7000
+    targetPort: hp-cont-port

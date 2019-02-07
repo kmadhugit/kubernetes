@@ -1,0 +1,19 @@
+# Default values for hello-helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+appname: hello
+
+deployment:
+  replicaCount: 2
+
+container:
+  repository: madhukandasamy/hello-container
+  tag: latest
+  pullPolicy: IfNotPresent
+  port: 8000
+
+service:
+  type: ClusterIP
+  port: 7000
+

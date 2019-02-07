@@ -1,0 +1,5 @@
+1. Get the application URL by running these commands:
+  Add DNS entry for minikube/external IP with {{.Values.host}}
+  curl {{.Values.host}}/{{.Values.service1.appname}}
+  or
+  curl {{.Values.host}}/{{.Values.service2.appname}}

@@ -1,0 +1,9 @@
+dependencies:
+  - name: hello-service-chart
+    repository: "@my-helm-repo"
+    version: 0.1.1
+    alias: service1
+  - name: hello-service-chart
+    repository: "@my-helm-repo"
+    version: 0.1.1
+    alias: service2

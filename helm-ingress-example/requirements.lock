@@ -1,0 +1,9 @@
+dependencies:
+- name: hello-service-chart
+  repository: https://kmadhugit.github.io/helm-repository/
+  version: 0.1.1
+- name: hello-service-chart
+  repository: https://kmadhugit.github.io/helm-repository/
+  version: 0.1.1
+digest: sha256:90b6c1f6cd0c76c555577d3e5f1239dad7a2ee9680c128ec8f76d8bdf8bfd454
+generated: 2019-02-07T11:54:19.711787+05:30
